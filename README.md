@@ -1,139 +1,108 @@
-# flutter-client starter
-
-`flutter-client` is a minimal Flutter starter following Clean Architecture.
-
-It can be used standalone or copied into a derived full-stack project under `app/client`.
+# Agentic Flutter Client
 
 ## Purpose
 
-Provide a runnable Flutter client with:
+This starter provides the Flutter client foundation for Agentic platform projects.
 
-- `HomePage` and `HealthPage`
-- clean layer boundaries (`domain`, `application`, `infrastructure`, `presentation`)
-- a health check flow calling backend `GET /health`
-- unit and widget tests without real network calls
+It is intended for multi-platform client development across mobile, web, and desktop, while remaining modular and independent from backend and runtime composition details.
 
-## Folder structure and dependency rules
+---
 
-Core app code lives in `app/lib`:
+## Install target
 
-- `domain/` → pure Dart business models, no Flutter/external package dependencies
-- `application/` → use cases and ports, depends only on `domain`
-- `infrastructure/` → adapters implementing application ports (HTTP repository)
-- `presentation/` → Flutter UI, routing, state management
+This starter installs into:
 
-Dependency direction:
+app/client
 
-- `domain` depends on nothing
-- `application` depends on `domain`
-- `infrastructure` depends on `application` and `domain`
-- `presentation` depends on `application` (and may read domain models through application results)
+---
 
-## Included routes
+## Included
 
-- `/` → `HomePage`
-- `/health` → `HealthPage`
+- Flutter client foundation
+- Multi-platform project bootstrap
+- Base structure for Flutter UI development
+- Deterministic client-side project organization
 
-Routing uses `go_router`.
+---
 
-## Health flow
+## Not included
 
-- Domain entity: `HealthStatus`
-- Application port: `HealthRepository`
-- Application use case: `HealthCheckUseCase`
-- Infrastructure adapter: `HttpHealthRepository`
-- Presentation state: `HealthController`
+This starter intentionally does not include:
 
-`HttpHealthRepository` calls:
+- Business-specific screens
+- Authentication flows
+- API integration implementation details
+- Observability tooling
+- Production store/deployment configuration
 
-- `GET {API_BASE_URL}/health`
+Those concerns are handled by other starters or feature modules.
 
-Expected payload:
+---
 
-```json
-{ "status": "ok" }
-```
+## Prerequisites
 
-## Configure API base URL
+Typical runtime prerequisites:
 
-The app reads backend URL using `--dart-define`:
+- Flutter SDK
+- Dart SDK
+- Platform toolchains as needed
+- Optional Docker runtime for integration scenarios
 
-- key: `API_BASE_URL`
-- default fallback: `http://localhost:3000`
+---
 
-Example:
+## Expected structure after installation
 
-```bash
-cd app
-flutter run --dart-define=API_BASE_URL=http://localhost:3000
-```
+app/client
 
-## Run locally
+---
 
-```bash
-cd app
-flutter pub get
-flutter run
-```
+## Installation
 
-## Run tests
+1. Create a project using AGENTIC-TEMPLATE.
+2. Install this starter into:
 
-```bash
-cd app
-flutter test
-```
+app/client
 
-Included tests:
+3. Install Flutter dependencies.
+4. Run validation checks.
 
-- `test/unit/health_check_usecase_test.dart`
-- `test/widget/health_page_test.dart`
+---
 
-## Run smoke check
+## Post-install validation
 
-This smoke check validates UI navigation from `/` to `/health` and verifies
-health status rendering without real HTTP calls.
+Verify that:
 
-From `app/`:
+- Flutter dependencies install successfully
+- flutter analyze runs
+- flutter test runs
+- flutter build or run command is valid
 
-```bash
-flutter test test/widget/app_routing_smoke_test.dart
-```
+---
 
-Or use helper scripts:
+## Compatibility
 
-- PowerShell: `./scripts/smoke.ps1`
-- Bash: `./scripts/smoke.sh`
+Compatible with:
 
-## Install into a full-stack project
+- agentic-clean-backend
+- agentic-api-contracts-api
+- agentic-fullstack-composition
 
-### Option 1: Copy files
+---
 
-Copy everything from:
+## Exit criteria
 
-- `flutter-client/app/*`
+Installation is successful when:
 
-Into your target repository:
+- app/client exists
+- Flutter dependencies install successfully
+- flutter analyze runs
+- flutter test runs
+- no unresolved placeholders remain
 
-- `target-project/app/client/`
+---
 
-Then run in target folder:
+## Notes
 
-```bash
-cd app/client
-flutter pub get
-flutter run
-```
+This starter is intentionally minimal.
 
-### Option 2: Git subtree
-
-From target repository root:
-
-```bash
-git remote add starters <path-or-url-to-agentic-architecture-starters>
-git fetch starters
-git subtree add --prefix=app/client starters main --squash
-```
-
-## ADR note
-
-After installing this starter into a derived project, add a project-specific ADR describing Flutter layer boundaries and API integration rules.
+Screens, navigation, state management, and integration with backend contracts should be extended through project-specific features.
