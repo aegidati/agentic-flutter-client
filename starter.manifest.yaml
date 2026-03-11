@@ -2,6 +2,7 @@ id: agentic-flutter-client
 name: Agentic Flutter Client
 version: 0.1.0
 type: frontend
+
 installsInto: app/client
 
 ownedPaths:
@@ -10,23 +11,24 @@ ownedPaths:
 dependencies: []
 
 optionalDependencies:
+  - agentic-clean-backend
   - agentic-api-contracts-api
   - agentic-fullstack-composition
 
 provides:
   - flutter-client-foundation
-  - mobile-web-desktop-client-bootstrap
-  - flutter-project-structure
+  - multiplatform-client-bootstrap
+  - client-structure
 
 requires:
   - flutter-sdk
   - dart-sdk
 
 postInstallChecks:
-  - flutter dependencies install successfully
+  - flutter dependencies install
   - flutter analyze runs
   - flutter test runs
-  - flutter run or build command is valid
+  - flutter build or run command is valid
 
 tags:
   - agentic
